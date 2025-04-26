@@ -1,0 +1,4014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE CHAOS | ANARCHY</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Space+Mono&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      cursor: default;
+      font-family: 'Space Mono', monospace;
+    }
+    
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background-color: rgba(10, 10, 10, 0.95);
+      border-bottom: 1px solid #1a1a1a;
+    }
+    
+    .logo {
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+    }
+    
+    .logo:hover {
+      color: #ff0000;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-item {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .nav-item:hover {
+      color: #ff0000;
+    }
+    
+    .nav-item:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: -3px;
+      left: 0;
+      background-color: #ff0000;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-item:hover:after {
+      width: 100%;
+    }
+    
+    .cart-icon {
+      font-size: 1.2rem;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+    
+    /* Hero Banner */
+    .hero-banner {
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background-color: #111;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      filter: contrast(120%) grayscale(100%);
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: 5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -2px;
+      line-height: 0.9;
+      position: relative;
+      display: inline-block;
+      text-shadow: 3px 3px 0px rgba(255, 0, 0, 0.3);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+    
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      background: none;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .filter-btn.active {
+      background-color: #ff0000;
+      border-color: #ff0000;
+    }
+    
+    .filter-btn:hover {
+      border-color: #ff0000;
+    }
+    
+    /* Main Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 2rem;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      padding-right: 2rem;
+      border-right: 1px solid #222;
+      flex-shrink: 0;
+    }
+    
+    .sidebar-title {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+    }
+    
+    .sidebar-title:after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 2px;
+      background-color: #ff0000;
+      bottom: -10px;
+      left: 0;
+    }
+    
+    .filter-section {
+      margin-bottom: 2rem;
+    }
+    
+    .filter-heading {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    
+    .price-slider {
+      margin-bottom: 1rem;
+    }
+    
+    .price-range {
+      width: 100%;
+      height: 2px;
+      background-color: #333;
+      margin: 1rem 0;
+      position: relative;
+    }
+    
+    .price-handle {
+      width: 12px;
+      height: 12px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    
+    .price-handle.left {
+      left: 0;
+    }
+    
+    .price-handle.right {
+      right: 0;
+    }
+    
+    .price-values {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .variant-selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+.variant-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.variant-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #666;
+}
+
+.color-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.color-swatch.selected {
+  border-color: #ff0000;
+  transform: scale(1.1);
+}
+
+.color-swatch.sold-out {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.color-swatch.sold-out::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='100%' x2='100%' y2='0' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+}
+
+.size-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.size-option {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  padding: 0 1rem;
+}
+
+.size-option.selected {
+  border-color: #ff0000;
+  background: #ff0000;
+}
+
+.size-option:not(.sold-out):hover {
+  border-color: #ff0000;
+  transform: translateY(-2px);
+}
+
+.size-option.sold-out {
+  opacity: 0.3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.stock-indicator {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+    /* Product Grid */
+    .products-container {
+      flex: 1;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background-color: #111;
+      border: 1px solid #222;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: #444;
+    }
+    
+    .product-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 350px;
+    }
+    
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.5s ease;
+    }
+    
+    .product-card:hover .product-img {
+      filter: grayscale(0%);
+    }
+    
+    .product-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .product-card:hover .product-overlay {
+      opacity: 1;
+    }
+    
+    .view-btn {
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .view-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+    
+    .product-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff0000;
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      z-index: 10;
+    }
+    
+    .product-info {
+      padding: 1.2rem;
+    }
+    
+    .product-name {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-price {
+      font-size: 1.1rem;
+      color: #ff0000;
+    }
+    
+    /* Featured Drop */
+    .featured-drop {
+      margin: 5rem 0;
+      padding: 0 2rem;
+      overflow: hidden;
+    }
+    
+    .drop-title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .drop-title:after {
+      content: '';
+      position: absolute;
+      width: 60%;
+      height: 3px;
+      bottom: -10px;
+      left: 0;
+      background-color: #ff0000;
+    }
+    
+    .drop-slider {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      padding: 1rem 0;
+    }
+    
+    .drop-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .drop-item {
+      min-width: 300px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .drop-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    
+    .drop-item:hover .drop-img {
+      filter: grayscale(0%);
+    }
+    
+    .drop-info {
+      padding: 1rem 0;
+    }
+    
+    .drop-name {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    .drop-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ff0000;
+      font-size: 0.9rem;
+      transition: gap 0.3s ease;
+    }
+    
+    .drop-item:hover .drop-btn {
+      gap: 0.8rem;
+    }
+    
+    .countdown-timer {
+      color: #ff0000;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      animation: pulse 2s infinite;
+    }
+
+    .countdown-timer.urgent {
+      color: #ff0000;
+      font-weight: bold;
+    }
+    
+    /* Pagination */
+    .pagination {
+      text-align: center;
+      margin: 4rem 0;
+      position: relative;
+    }
+    
+    .load-more {
+      background: none;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .load-more:hover {
+      background-color: #ff0000;
+      border-color: #ff0000;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    }
+    
+    .load-more:hover {
+      animation: pulse 1.5s infinite;
+    }
+    
+    .bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      opacity: 0.05;
+      font-weight: 900;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-family: 'Montserrat', sans-serif;
+      z-index: 1;
+    }
+    
+    /* Support Bar */
+    .support-bar {
+      background-color: #111;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      border-top: 1px solid #222;
+      margin-top: 4rem;
+    }
+    
+    .support-text {
+      font-size: 1rem;
+    }
+    
+    .support-btn {
+      background: none;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+    
+    .support-btn:hover {
+      background-color: #ff0000;
+      border-color: #ff0000;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 4rem 2rem;
+      background-color: #0a0a0a;
+      border-top: 1px solid #222;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .footer-title {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    
+    .footer-link {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+      color: #ff0000;
+    }
+    
+    .footer-socials {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #222;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    
+    .social-icon:hover {
+      background-color: #ff0000;
+      border-color: #ff0000;
+      transform: translateY(-2px);
+    }
+    
+    .social-icon i {
+      color: #fff;
+    }
+    
+    .copyright {
+      margin-top: 3rem;
+      opacity: 0.5;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    
+    /* Mobile Styles */
+    @media (max-width: 968px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100
+        border-right: none;
+        border-bottom: 1px solid #222;
+        padding-right: 0;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .product-img-container {
+        height: 200px;
+      }
+    }
+    
+    /* Floating Cart */
+    .floating-cart {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background-color: #ff0000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .floating-cart {
+        display: flex;
+      }
+      
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+
+    /* Add to Cart Button Styles */
+    .add-to-cart {
+      background: #ff0000;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .add-to-cart:hover {
+      background: #cc0000;
+    }
+
+    /* Flying animation */
+    .flying-item {
+      position: fixed;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* New Releases Styles */
+    .new-releases {
+      width: 100%;
+      display: none; /* Initial state */
+    }
+
+    .new-releases.active {
+      display: block;
+    }
+
+    .new-releases .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Product Modal Styles */
+    .product-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-content {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; /* Increased gap between sections */
+      width: 90%;
+      max-width: 1400px;
+      background: transparent; /* Removed background */
+      padding: 0; /* Removed padding */
+      z-index: 1;
+    }
+
+    .modal-images {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .main-image {
+      aspect-ratio: 1;
+      background: transparent; /* Removed background */
+      overflow: hidden;
+    }
+
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-thumbnails {
+      display: flex;
+      gap: 1rem; /* Increased gap */
+      overflow-x: auto;
+    }
+
+    .image-thumbnails img {
+      width: 80px; /* Slightly larger thumbnails */
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+
+    .image-thumbnails img.active {
+      opacity: 1;
+      border: 2px solid #ff0000;
+    }
+
+    .modal-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem; /* Increased gap */
+      padding: 2rem 0; /* Vertical padding only */
+    }
+
+    .modal-title {
+      font-size: 2.5rem; /* Larger title */
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    .modal-price {
+      font-size: 2rem; /* Larger price */
+      color: #ff0000;
+    }
+
+    .modal-description {
+      font-family: 'Space Mono', monospace;
+      line-height: 1.8;
+      opacity: 0.8;
+      font-size: 1.1rem; /* Larger text */
+    }
+
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .quantity-btn {
+      background: none;
+      border: 1px solid #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .quantity-btn:hover {
+      border-color: #ff0000;
+      color: #ff0000;
+    }
+
+    .quantity-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      border-color: #333;
+      color: #666;
+    }
+
+    .quantity-btn:disabled:hover {
+      border-color: #333;
+      color: #666;
+    }
+
+    .quantity-count {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .modal-add-cart {
+      margin-top: auto;
+      background: #ff0000;
+      color: white;
+      border: none;
+      padding: 1.5rem; /* Larger button */
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-add-cart:hover {
+      background: #cc0000;
+      transform: translateY(-2px);
+    }
+
+    .modal-add-cart.sold-out {
+      background: #333;
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .modal-add-cart.sold-out:hover {
+      background: #333;
+      transform: none;
+    }
+
+    .sold-out-label {
+      color: #ff0000;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stock-warning {
+      color: #ff0000;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    .modal-close {
+      position: fixed; /* Changed to fixed */
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 3rem; /* Larger close button */
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .modal-close:hover {
+      opacity: 1;
+      transform: rotate(90deg);
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 1rem;
+      }
+    }
+
+    /* Cart Drawer Styles */
+.cart-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cart-drawer.active {
+  pointer-events: all;
+}
+
+.cart-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cart-drawer.active .cart-backdrop {
+  opacity: 1;
+}
+
+.cart-content {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #111;
+  height: 100%;
+  padding: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-drawer.active .cart-content {
+  transform: translateX(0);
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #222;
+}
+
+.cart-header h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.cart-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  margin: -1rem;
+  padding: 1rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cart-item-name {
+  font-weight: bold;
+}
+
+.cart-item-variant {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.cart-item-price {
+  color: #ff0000;
+}
+
+.remove-item {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.remove-item:hover {
+  color: #ff0000;
+}
+
+.cart-footer {
+  border-top: 1px solid #222;
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.checkout-btn {
+  width: 100%;
+  background: #ff0000;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background: #cc0000;
+  transform: translateY(-2px);
+}
+
+/* Add to your existing CSS */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast {
+  background: #111;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateX(120%);
+  opacity: 0;
+  animation: slideIn 0.3s ease forwards;
+  font-family: 'Space Mono', monospace;
+  pointer-events: all;
+}
+
+.toast.success {
+  border-color: #00ff00;
+}
+
+.toast.error {
+  border-color: #ff0000;
+}
+
+.toast.warning {
+  border-color: #ff9900;
+}
+
+.toast.removing {
+  animation: slideOut 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="noise"></div>
+  
+  <header>
+    <div class="logo">ANARCHY</div>
+    <div class="nav">
+      <div class="nav-item">Shop</div>
+      <div class="nav-item">Collections</div>
+      <div class="nav-item">Lookbook</div>
+      <div class="nav-item">About</div>
+    </div>
+    <div class="cart-icon">
+      🛒
+      <div class="cart-count">2</div>
+    </div>
+  </header>
+  
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <img src="/api/placeholder/1920/500" alt="The Chaos" class="hero-bg">
+    <div class="hero-content">
+      <h1 class="hero-title">THE CHAOS</h1>
+      <p class="hero-subtitle">Choose your poison.</p>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">New</button>
+      <button class="filter-btn">Streetwear</button>
+      <button class="filter-btn">Last Drop</button>
+      <button class="filter-btn">Accessories</button>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+      
+      <!-- Price Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Price Range</h3>
+        <div class="price-slider">
+          <div class="price-range">
+            <div class="price-handle left"></div>
+            <div class="price-handle right"></div>
+          </div>
+          <div class="price-values">
+            <span>$0</span>
+            <span>$500</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Size Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Size</h3>
+        <div class="size-options">
+          <div class="size-option">S</div>
+          <div class="size-option selected">M</div>
+          <div class="size-option">L</div>
+          <div class="size-option">XL</div>
+        </div>
+      </div>
+      
+      <!-- Sort By -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Sort By</h3>
+        <div class="sort-options">
+          <div class="sort-option">
+            <div class="sort-radio selected"></div>
+            <span>Popular</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Newest</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↑</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↓</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Categories -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Categories</h3>
+        <div class="categories-list">
+          <div class="category-option">
+            <div class="category-checkbox selected"></div>
+            <span>Jackets</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Hoodies</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Pants</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Accessories</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Footwear</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Products -->
+    <main class="products-container">
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-stock="5">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Product Name</h3>
+            <div class="product-price">$99.99</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card" data-stock="8">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-027: Havoc Hoodie</h3>
+            <div class="product-price">$89</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card" data-stock="0">
+          <div class="product-img-container">
+            <div class="product-tag">Sold Out</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-045: Rogue Pants</h3>
+            <div class="product-price">$110</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-038: Anarchy Tee</h3>
+            <div class="product-price">$45</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">Limited</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-051: Rebel Cap</h3>
+            <div class="product-price">$35</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-062: Disorder Boots</h3>
+            <div class="product-price">$195</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Releases -->
+    <div class="new-releases" style="display: none;">
+      <div class="product-grid">
+        <!-- New Product 1 -->
+        <div class="product-card" data-stock="2">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-078: Chaos Puffer</h3>
+            <div class="product-price">$159</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 2 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-079: Riot Vest</h3>
+            <div class="product-price">$95</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 3 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-080: Disorder Cargos</h3>
+            <div class="product-price">$125</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Featured Drop Section -->
+  <section class="featured-drop">
+    <h2 class="drop-title">🔥 Just Dropped</h2>
+    <div class="drop-slider">
+      <!-- Drop Item 1 -->
+      <div class="drop-item">
+        <div class="countdown">24:23:59</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Blackout Collection 2025</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Drop Item 2 -->
+      <div class="drop-item">
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Chaos Theory Series</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drop Item 2 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dungeons Series I </h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 3 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Urban Warfare Pack</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 4 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dystopia Drop Vol.1</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 5 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Blood on Canvas</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 6 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Noise & Needles Collab</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+      <!-- Drop Item 3 -->
+      <div class="drop-item">
+        <div class="countdown">12:04:30</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Dystopia Limited Edition</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <div class="bg-text">ANARCHY</div>
+    <button class="load-more">Load More</button>
+  </div>
+
+  <!-- Support Bar -->
+  <div class="support-bar">
+    <div class="support-text">Questions? Hit us up →
+    </div>
+    <button class="support-btn">Contact Support</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shop All</div>
+          <div class="footer-link">Collections</div>
+          <div class="footer-link">Lookbook</div>
+          <div class="footer-link">About Us</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Help</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shipping</div>
+          <div class="footer-link">Returns</div>
+          <div class="footer-link">Sizing Guide</div>
+          <div class="footer-link">FAQ</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Legal</h4>
+        <div class="footer-links">
+          <div class="footer-link">Privacy Policy</div>
+          <div class="footer-link">Terms of Service</div>
+          <div class="footer-link">Cookie Policy</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Connect</h4>
+        <div class="footer-socials">
+          <div class="social-icon"><i class="fab fa-instagram"></i></div>
+          <div class="social-icon"><i class="fab fa-twitter"></i></div>
+          <div class="social-icon"><i class="fab fa-discord"></i></div>
+          <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 ANARCHY. All rights reserved.</div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="product-modal" style="display: none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <!-- Left Side: Images -->
+      <div class="modal-images">
+        <div class="main-image">
+          <img src="/api/placeholder/600/600" alt="Product">
+        </div>
+        <div class="image-thumbnails">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 1" class="active">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 2">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 3">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 4">
+        </div>
+      </div>
+      <!-- Right Side: Info -->
+      <div class="modal-info">
+        <h2 class="modal-title">PRODUCT NAME</h2>
+        <p class="modal-price">$99.99</p>
+        <div class="modal-description">
+          <p>Embrace the chaos. This piece represents the perfect fusion of underground aesthetics and streetwear rebellion. Each detail carefully crafted for those who dare to stand out.</p>
+        </div>
+
+        <div class="variant-selectors">
+  <div class="variant-group">
+    <div class="variant-label">Color</div>
+    <div class="color-options">
+      <!-- Color swatches will be added dynamically -->
+    </div>
+  </div>
+  
+  <div class="variant-group">
+    <div class="variant-label">Size</div>
+    <div class="size-options">
+      <!-- Size options will be added dynamically -->
+    </div>
+    <div class="stock-indicator"></div>
+  </div>
+</div>
+
+        <div class="quantity-selector">
+          <button class="quantity-btn decrease">−</button>
+          <span class="quantity-count">1</span>
+          <button class="quantity-btn increase">+</button>
+        </div>
+        <button class="modal-add-cart">ADD TO CHAOS</button>
+      </div>
+      <button class="modal-close">×</button>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+<div class="cart-drawer">
+  <div class="cart-backdrop"></div>
+  <div class="cart-content">
+    <div class="cart-header">
+      <h3>YOUR CHAOS (2)</h3>
+      <button class="cart-close">×</button>
+    </div>
+    
+    <div class="cart-items">
+      <!-- Cart items will be added dynamically -->
+    </div>
+    
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>TOTAL</span>
+        <span class="total-amount">$0.00</span>
+      </div>
+      <button class="checkout-btn">CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const productData = {
+  'ANR-013: Scorched Jacket': {
+    variants: [
+      { color: 'Black', hex: '#000000', size: 'S', stock: 2, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'M', stock: 3, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'L', stock: 0, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'M', stock: 1, price: 139, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'L', stock: 4, price: 139, image: '/api/placeholder/600/800' }
+    ]
+  }
+  // Add more products as needed
+};
+
+    function updateCartCount(num = 1) {
+      let count = parseInt(localStorage.getItem('cartCount')) || 0;
+      count += num;
+      localStorage.setItem('cartCount', count);
+      document.querySelector('.cart-count').textContent = count;
+    }
+
+    function flyToCart(button) {
+      const product = button.closest('.product-card');
+      const productImg = product.querySelector('.product-img');
+      const cartContent = document.querySelector('.cart-content');
+      
+      // Get product details
+      const productDetails = {
+        name: product.querySelector('.product-name').textContent,
+        price: product.querySelector('.product-price').textContent,
+        image: productImg.src
+      };
+      
+      // Clone image for animation
+      const imgClone = productImg.cloneNode(true);
+      const productRect = productImg.getBoundingClientRect();
+      const cartRect = cartContent.getBoundingClientRect();
+      
+      imgClone.style.position = 'fixed';
+      imgClone.style.left = `${productRect.left}px`;
+      imgClone.style.top = `${productRect.top}px`;
+      imgClone.style.width = `${productImg.offsetWidth}px`;
+      imgClone.style.height = `${productImg.offsetHeight}px`;
+      imgClone.style.transition = 'all 0.8s ease-in-out';
+      imgClone.style.zIndex = 9999;
+      
+      document.body.appendChild(imgClone);
+      
+      setTimeout(() => {
+        imgClone.style.left = `${cartRect.right - 100}px`;
+        imgClone.style.top = `${window.scrollY + 100}px`;
+        imgClone.style.opacity = '0';
+        imgClone.style.transform = 'scale(0.2)';
+      }, 10);
+      
+      // Add to cart after animation
+      setTimeout(() => {
+        imgClone.remove();
+        cart.addItem(productDetails, null, 1);
+      }, 800);
+    }
+
+    const cart = {
+  items: [],
+
+  init() {
+    this.items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    this.updateUI();
+
+    // Event listeners
+    document.querySelector('.cart-icon').addEventListener('click', this.open.bind(this));
+    document.querySelector('.cart-backdrop').addEventListener('click', this.close.bind(this));
+    document.querySelector('.cart-close').addEventListener('click', this.close.bind(this));
+  },
+
+  addItem(product, variant, quantity) {
+    const item = {
+      id: Date.now(),
+      name: product.name,
+      price: variant ? variant.price : parseFloat(product.price.replace('$', '')),
+      image: variant ? variant.image : product.image,
+      variant: variant ? `${variant.color} - ${variant.size}` : null,
+      quantity: quantity
+    };
+
+    this.items.push(item);
+    this.save();
+    this.updateUI();
+    this.open();
+
+    toast.show(`${product.name} added to cart`, 'success');
+  },
+
+  removeItem(id) {
+    this.items = this.items.filter(item => item.id !== id);
+    this.save();
+    this.updateUI();
+  },
+
+  save() {
+    localStorage.setItem('cartItems', JSON.stringify(this.items));
+    localStorage.setItem('cartCount', this.items.reduce((sum, item) => sum + item.quantity, 0));
+  },
+
+  updateUI() {
+    const cartItems = document.querySelector('.cart-items');
+    const totalAmount = document.querySelector('.total-amount');
+    const cartCount = document.querySelector('.cart-count');
+
+    // Update items
+    cartItems.innerHTML = this.items.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          ${item.variant ? `<div class="cart-item-variant">${item.variant}</div>` : ''}
+          <div class="cart-item-price">$${item.price} × ${item.quantity}</div>
+        </div>
+        <button class="remove-item" onclick="cart.removeItem(${item.id})">Remove</button>
+      </div>
+    `).join('');
+
+    // Update total
+    const total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+
+    // Update count
+    cartCount.textContent = this.items.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Update header
+    document.querySelector('.cart-header h3').textContent = 
+      `YOUR CHAOS (${this.items.length})`;
+  },
+
+  open() {
+    document.querySelector('.cart-drawer').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  },
+
+  close() {
+    document.querySelector('.cart-drawer').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+};
+
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', () => {
+  cart.init();
+
+  // Add click handlers for View Chaos buttons
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const product = btn.closest('.product-card');
+      openProductModal(product);
+    });
+  });
+  
+  // Add modal close handlers
+  document.querySelector('.modal-backdrop').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  
+  document.querySelector('.modal-close').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+});
+
+// Open Product Modal
+function openProductModal(product) {
+  const modal = document.querySelector('.product-modal');
+  
+  // Get product details
+  const productDetails = {
+    name: product.querySelector('.product-name').textContent,
+    price: product.querySelector('.product-price').textContent,
+    image: product.querySelector('.product-img').src,
+    stock: product.dataset.stock || '10'
+  };
+  
+  // Store stock in modal dataset
+  modal.dataset.stock = productDetails.stock;
+  
+  // Update modal content
+  modal.querySelector('.modal-title').textContent = productDetails.name;
+  modal.querySelector('.modal-price').textContent = productDetails.price;
+  modal.querySelector('.main-image img').src = productDetails.image;
+  
+  // Set all thumbnails to same image for now
+  modal.querySelectorAll('.image-thumbnails img').forEach(thumb => {
+    thumb.src = productDetails.image;
+  });
+  
+  // Reset quantity to 1
+  modal.querySelector('.quantity-count').textContent = '1';
+  
+  // Check if product is sold out
+  const isSoldOut = product.querySelector('.product-tag')?.textContent === 'Sold Out';
+  const quantitySelector = modal.querySelector('.quantity-selector');
+  const addToCartBtn = modal.querySelector('.modal-add-cart');
+  
+  if (isSoldOut) {
+    quantitySelector.style.display = 'none';
+    addToCartBtn.textContent = '🚫 SORRY, CHAOS SOLD OUT';
+    addToCartBtn.classList.add('sold-out');
+    addToCartBtn.disabled = true;
+  } else {
+    quantitySelector.style.display = 'flex';
+    addToCartBtn.textContent = 'ADD TO CHAOS';
+    addToCartBtn.classList.remove('sold-out');
+    addToCartBtn.disabled = false;
+  }
+  
+  // Show modal
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// Fix the quantity selector event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // ...existing init code...
+
+  const quantitySelector = document.querySelector('.quantity-selector');
+  if (quantitySelector) {
+    const decreaseBtn = quantitySelector.querySelector('.decrease');
+    const increaseBtn = quantitySelector.querySelector('.increase');
+    
+    decreaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      if (count > 1) {
+        quantityCount.textContent = count - 1;
+      }
+      updateIncreaseButtonState(modal, parseInt(modal.dataset.stock));
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      const stock = parseInt(modal.dataset.stock);
+      
+      if (count >= stock) {
+        showMaxQuantityWarning();
+        return;
+      }
+      
+      quantityCount.textContent = count + 1;
+      updateIncreaseButtonState(modal, stock);
+    });
+  }
+});
+
+function startProductCountdown(product, endTime) {
+  const countdownEl = document.createElement('div');
+  countdownEl.className = 'countdown-timer';
+  product.querySelector('.product-info').insertBefore(
+    countdownEl,
+    product.querySelector('.add-to-cart')
+  );
+
+  const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+
+    // Time calculations
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Format time
+    const timeLeft = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Update display
+    countdownEl.innerHTML = `⏳ ${timeLeft} left`;
+
+
+    if (distance < 1000 * 60 * 60) {
+      countdownEl.classList.add('urgent');
+    }
+
+    // When countdown finished
+    if (distance < 0) {
+      clearInterval(interval);
+      countdownEl.remove();
+      
+      // Mark as sold out
+      const productTag = product.querySelector('.product-tag') || 
+        document.createElement('div');
+      productTag.className = 'product-tag';
+      productTag.textContent = 'Sold Out';
+      if (!product.querySelector('.product-tag')) {
+        product.querySelector('.product-img-container').prepend(productTag);
+      }
+      
+      // Disable add to cart
+      const addToCartBtn = product.querySelector('.add-to-cart');
+      addToCartBtn.disabled = true;
+      addToCartBtn.textContent = 'Sold Out';
+      addToCartBtn.style.opacity = '0.5';
+      addToCartBtn.style.cursor = 'not-allowed';
+      
+      // Update product data
+      product.dataset.stock = '0';
+    }
+  }, 1000);
+
+  return interval;
+}
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="noise"></div>
+  
+  <header>
+    <div class="logo">ANARCHY</div>
+    <div class="nav">
+      <div class="nav-item">Shop</div>
+      <div class="nav-item">Collections</div>
+      <div class="nav-item">Lookbook</div>
+      <div class="nav-item">About</div>
+    </div>
+    <div class="cart-icon">
+      🛒
+      <div class="cart-count">2</div>
+    </div>
+  </header>
+  
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <img src="/api/placeholder/1920/500" alt="The Chaos" class="hero-bg">
+    <div class="hero-content">
+      <h1 class="hero-title">THE CHAOS</h1>
+      <p class="hero-subtitle">Choose your poison.</p>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">New</button>
+      <button class="filter-btn">Streetwear</button>
+      <button class="filter-btn">Last Drop</button>
+      <button class="filter-btn">Accessories</button>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+      
+      <!-- Price Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Price Range</h3>
+        <div class="price-slider">
+          <div class="price-range">
+            <div class="price-handle left"></div>
+            <div class="price-handle right"></div>
+          </div>
+          <div class="price-values">
+            <span>$0</span>
+            <span>$500</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Size Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Size</h3>
+        <div class="size-options">
+          <div class="size-option">S</div>
+          <div class="size-option selected">M</div>
+          <div class="size-option">L</div>
+          <div class="size-option">XL</div>
+        </div>
+      </div>
+      
+      <!-- Sort By -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Sort By</h3>
+        <div class="sort-options">
+          <div class="sort-option">
+            <div class="sort-radio selected"></div>
+            <span>Popular</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Newest</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↑</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↓</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Categories -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Categories</h3>
+        <div class="categories-list">
+          <div class="category-option">
+            <div class="category-checkbox selected"></div>
+            <span>Jackets</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Hoodies</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Pants</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Accessories</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Footwear</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Products -->
+    <main class="products-container">
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-stock="5">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Product Name</h3>
+            <div class="product-price">$99.99</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card" data-stock="8">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-027: Havoc Hoodie</h3>
+            <div class="product-price">$89</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card" data-stock="0">
+          <div class="product-img-container">
+            <div class="product-tag">Sold Out</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-045: Rogue Pants</h3>
+            <div class="product-price">$110</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-038: Anarchy Tee</h3>
+            <div class="product-price">$45</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">Limited</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-051: Rebel Cap</h3>
+            <div class="product-price">$35</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-062: Disorder Boots</h3>
+            <div class="product-price">$195</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Releases -->
+    <div class="new-releases" style="display: none;">
+      <div class="product-grid">
+        <!-- New Product 1 -->
+        <div class="product-card" data-stock="2">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-078: Chaos Puffer</h3>
+            <div class="product-price">$159</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 2 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div```html
+          <div class="product-info">
+            <h3 class="product-name">ANR-079: Riot Vest</h3>
+            <div class="product-price">$95</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 3 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-080: Disorder Cargos</h3>
+            <div class="product-price">$125</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Featured Drop Section -->
+  <section class="featured-drop">
+    <h2 class="drop-title">🔥 Just Dropped</h2>
+    <div class="drop-slider">
+      <!-- Drop Item 1 -->
+      <div class="drop-item">
+        <div class="countdown">24:23:59</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Blackout Collection 2025</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Drop Item 2 -->
+      <div class="drop-item">
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Chaos Theory Series</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drop Item 2 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dungeons Series I </h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 3 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Urban Warfare Pack</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 4 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dystopia Drop Vol.1</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 5 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Blood on Canvas</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 6 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Noise & Needles Collab</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+      <!-- Drop Item 3 -->
+      <div class="drop-item">
+        <div class="countdown">12:04:30</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Dystopia Limited Edition</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <div class="bg-text">ANARCHY</div>
+    <button class="load-more">Load More</button>
+  </div>
+
+  <!-- Support Bar -->
+  <div class="support-bar">
+    <div class="support-text">Questions? Hit us up →</div>
+    <button class="support-btn">Contact Support</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shop All</div>
+          <div class="footer-link">Collections</div>
+          <div class="footer-link">Lookbook</div>
+          <div class="footer-link">About Us</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Help</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shipping</div>
+          <div class="footer-link">Returns</div>
+          <div class="footer-link">Sizing Guide</div>
+          <div class="footer-link">FAQ</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Legal</h4>
+        <div class="footer-links">
+          <div class="footer-link">Privacy Policy</div>
+          <div class="footer-link">Terms of Service</div>
+          <div class="footer-link">Cookie Policy</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Connect</h4>
+        <div class="footer-socials">
+          <div class="social-icon"><i class="fab fa-instagram"></i></div>
+          <div class="social-icon"><i class="fab fa-twitter"></i></div>
+          <div class="social-icon"><i class="fab fa-discord"></i></div>
+          <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 ANARCHY. All rights reserved.</div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="product-modal" style="display: none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <!-- Left Side: Images -->
+      <div class="modal-images">
+        <div class="main-image">
+          <img src="/api/placeholder/600/600" alt="Product">
+        </div>
+        <div class="image-thumbnails">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 1" class="active">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 2">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 3">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 4">
+        </div>
+      </div>
+      <!-- Right Side: Info -->
+      <div class="modal-info">
+        <h2 class="modal-title">PRODUCT NAME</h2>
+        <p class="modal-price">$99.99</p>
+        <div class="modal-description">
+          <p>Embrace the chaos. This piece represents the perfect fusion of underground aesthetics and streetwear rebellion. Each detail carefully crafted for those who dare to stand out.</p>
+        </div>
+
+        <div class="variant-selectors">
+  <div class="variant-group">
+    <div class="variant-label">Color</div>
+    <div class="color-options">
+      <!-- Color swatches will be added dynamically -->
+    </div>
+  </div>
+  
+  <div class="variant-group">
+    <div class="variant-label">Size</div>
+    <div class="size-options">
+      <!-- Size options will be added dynamically -->
+    </div>
+    <div class="stock-indicator"></div>
+  </div>
+</div>
+
+        <div class="quantity-selector">
+          <button class="quantity-btn decrease">−</button>
+          <span class="quantity-count">1</span>
+          <button class="quantity-btn increase">+</button>
+        </div>
+        <button class="modal-add-cart">ADD TO CHAOS</button>
+      </div>
+      <button class="modal-close">×</button>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+<div class="cart-drawer">
+  <div class="cart-backdrop"></div>
+  <div class="cart-content">
+    <div class="cart-header">
+      <h3>YOUR CHAOS (2)</h3>
+      <button class="cart-close">×</button>
+    </div>
+    
+    <div class="cart-items">
+      <!-- Cart items will be added dynamically -->
+    </div>
+    
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>TOTAL</span>
+        <span class="total-amount">$0.00</span>
+      </div>
+      <button class="checkout-btn">CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const productData = {
+  'ANR-013: Scorched Jacket': {
+    variants: [
+      { color: 'Black', hex: '#000000', size: 'S', stock: 2, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'M', stock: 3, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'L', stock: 0, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'M', stock: 1, price: 139, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'L', stock: 4, price: 139, image: '/api/placeholder/600/800' }
+    ]
+  }
+  // Add more products as needed
+};
+
+    function updateCartCount(num = 1) {
+      let count = parseInt(localStorage.getItem('cartCount')) || 0;
+      count += num;
+      localStorage.setItem('cartCount', count);
+      document.querySelector('.cart-count').textContent = count;
+    }
+
+    function flyToCart(button) {
+      const product = button.closest('.product-card');
+      const productImg = product.querySelector('.product-img');
+      const cartContent = document.querySelector('.cart-content');
+      
+      // Get product details
+      const productDetails = {
+        name: product.querySelector('.product-name').textContent,
+        price: product.querySelector('.product-price').textContent,
+        image: productImg.src
+      };
+      
+      // Clone image for animation
+      const imgClone = productImg.cloneNode(true);
+      const productRect = productImg.getBoundingClientRect();
+      const cartRect = cartContent.getBoundingClientRect();
+      
+      imgClone.style.position = 'fixed';
+      imgClone.style.left = `${productRect.left}px`;
+      imgClone.style.top = `${productRect.top}px`;
+      imgClone.style.width = `${productImg.offsetWidth}px`;
+      imgClone.style.height = `${productImg.offsetHeight}px`;
+      imgClone.style.transition = 'all 0.8s ease-in-out';
+      imgClone.style.zIndex = 9999;
+      
+      document.body.appendChild(imgClone);
+      
+      setTimeout(() => {
+        imgClone.style.left = `${cartRect.right - 100}px`;
+        imgClone.style.top = `${window.scrollY + 100}px`;
+        imgClone.style.opacity = '0';
+        imgClone.style.transform = 'scale(0.2)';
+      }, 10);
+      
+      // Add to cart after animation
+      setTimeout(() => {
+        imgClone.remove();
+        cart.addItem(productDetails, null, 1);
+      }, 800);
+    }
+
+    const cart = {
+  items: [],
+
+  init() {
+    this.items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    this.updateUI();
+
+    // Event listeners
+    document.querySelector('.cart-icon').addEventListener('click', this.open.bind(this));
+    document.querySelector('.cart-backdrop').addEventListener('click', this.close.bind(this));
+    document.querySelector('.cart-close').addEventListener('click', this.close.bind(this));
+  },
+
+  addItem(product, variant, quantity) {
+    const item = {
+      id: Date.now(),
+      name: product.name,
+      price: variant ? variant.price : parseFloat(product.price.replace('$', '')),
+      image: variant ? variant.image : product.image,
+      variant: variant ? `${variant.color} - ${variant.size}` : null,
+      quantity: quantity
+    };
+
+    this.items.push(item);
+    this.save();
+    this.updateUI();
+    this.open();
+
+    toast.show(`${product.name} added to cart`, 'success');
+  },
+
+  removeItem(id) {
+    this.items = this.items.filter(item => item.id !== id);
+    this.save();
+    this.updateUI();
+  },
+
+  save() {
+    localStorage.setItem('cartItems', JSON.stringify(this.items));
+    localStorage.setItem('cartCount', this.items.reduce((sum, item) => sum + item.quantity, 0));
+  },
+
+  updateUI() {
+    const cartItems = document.querySelector('.cart-items');
+    const totalAmount = document.querySelector('.total-amount');
+    const cartCount = document.querySelector('.cart-count');
+
+    // Update items
+    cartItems.innerHTML = this.items.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          ${item.variant ? `<div class="cart-item-variant">${item.variant}</div>` : ''}
+          <div class="cart-item-price">$${item.price} × ${item.quantity}</div>
+        </div>
+        <button class="remove-item" onclick="cart.removeItem(${item.id})">Remove</button>
+      </div>
+    `).join('');
+
+    // Update total
+    const total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+
+    // Update count
+    cartCount.textContent = this.items.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Update header
+    document.querySelector('.cart-header h3').textContent = 
+      `YOUR CHAOS (${this.items.length})`;
+  },
+
+  open() {
+    document.querySelector('.cart-drawer').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  },
+
+  close() {
+    document.querySelector('.cart-drawer').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+};
+
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', () => {
+  cart.init();
+
+  // Add click handlers for View Chaos buttons
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const product = btn.closest('.product-card');
+      openProductModal(product);
+    });
+  });
+  
+  // Add modal close handlers
+  document.querySelector('.modal-backdrop').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  
+  document.querySelector('.modal-close').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+});
+
+// Open Product Modal
+function openProductModal(product) {
+  const modal = document.querySelector('.product-modal');
+  
+  // Get product details
+  const productDetails = {
+    name: product.querySelector('.product-name').textContent,
+    price: product.querySelector('.product-price').textContent,
+    image: product.querySelector('.product-img').src,
+    stock: product.dataset.stock || '10'
+  };
+  
+  // Store stock in modal dataset
+  modal.dataset.stock = productDetails.stock;
+  
+  // Update modal content
+  modal.querySelector('.modal-title').textContent = productDetails.name;
+  modal.querySelector('.modal-price').textContent = productDetails.price;
+  modal.querySelector('.main-image img').src = productDetails.image;
+  
+  // Set all thumbnails to same image for now
+  modal.querySelectorAll('.image-thumbnails img').forEach(thumb => {
+    thumb.src = productDetails.image;
+  });
+  
+  // Reset quantity to 1
+  modal.querySelector('.quantity-count').textContent = '1';
+  
+  // Check if product is sold out
+  const isSoldOut = product.querySelector('.product-tag')?.textContent === 'Sold Out';
+  const quantitySelector = modal.querySelector('.quantity-selector');
+  const addToCartBtn = modal.querySelector('.modal-add-cart');
+  
+  if (isSoldOut) {
+    quantitySelector.style.display = 'none';
+    addToCartBtn.textContent = '🚫 SORRY, CHAOS SOLD OUT';
+    addToCartBtn.classList.add('sold-out');
+    addToCartBtn.disabled = true;
+  } else {
+    quantitySelector.style.display = 'flex';
+    addToCartBtn.textContent = 'ADD TO CHAOS';
+    addToCartBtn.classList.remove('sold-out');
+    addToCartBtn.disabled = false;
+  }
+  
+  // Show modal
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// Fix the quantity selector event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // ...existing init code...
+
+  const quantitySelector = document.querySelector('.quantity-selector');
+  if (quantitySelector) {
+    const decreaseBtn = quantitySelector.querySelector('.decrease');
+    const increaseBtn = quantitySelector.querySelector('.increase');
+    
+    decreaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      if (count > 1) {
+        quantityCount.textContent = count - 1;
+      }
+      updateIncreaseButtonState(modal, parseInt(modal.dataset.stock));
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      const stock = parseInt(modal.dataset.stock);
+      
+      if (count >= stock) {
+        showMaxQuantityWarning();
+        return;
+      }
+      
+      quantityCount.textContent = count + 1;
+      updateIncreaseButtonState(modal, stock);
+    });
+  }
+});
+
+function startProductCountdown(product, endTime) {
+  const countdownEl = document.createElement('div');
+  countdownEl.className = 'countdown-timer';
+  product.querySelector('.product-info').insertBefore(
+    countdownEl,
+    product.querySelector('.add-to-cart')
+  );
+
+  const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+
+    // Time calculations
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Format time
+    const timeLeft = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Update display
+    countdownEl.innerHTML = `⏳ ${timeLeft} left`;
+
+
+    if (distance < 1000 * 60 * 60) {
+      countdownEl.classList.add('urgent');
+    }
+
+    // When countdown finished
+    if (distance < 0) {
+      clearInterval(interval);
+      countdownEl.remove();
+      
+      // Mark as sold out
+      const productTag = product.querySelector('.product-tag') || 
+        document.createElement('div');
+      productTag.className = 'product-tag';
+      productTag.textContent = 'Sold Out';
+      if (!product.querySelector('.product-tag')) {
+        product.querySelector('.product-img-container').prepend(productTag);
+      }
+      
+      // Disable add to cart
+      const addToCartBtn = product.querySelector('.add-to-cart');
+      addToCartBtn.disabled = true;
+      addToCartBtn.textContent = 'Sold Out';
+      addToCartBtn.style.opacity = '0.5';
+      addToCartBtn.style.cursor = 'not-allowed';
+      
+      // Update product data
+      product.dataset.stock = '0';
+    }
+  }, 1000);
+
+  return interval;
+}
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="noise"></div>
+  
+  <header>
+    <div class="logo">ANARCHY</div>
+    <div class="nav">
+      <div class="nav-item">Shop</div>
+      <div class="nav-item">Collections</div>
+      <div class="nav-item">Lookbook</div>
+      <div class="nav-item">About</div>
+    </div>
+    <div class="cart-icon">
+      🛒
+      <div class="cart-count">2</div>
+    </div>
+  </header>
+  
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <img src="/api/placeholder/1920/500" alt="The Chaos" class="hero-bg">
+    <div class="hero-content">
+      <h1 class="hero-title">THE CHAOS</h1>
+      <p class="hero-subtitle">Choose your poison.</p>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">New</button>
+      <button class="filter-btn">Streetwear</button>
+      <button class="filter-btn">Last Drop</button>
+      <button class="filter-btn">Accessories</button>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+      
+      <!-- Price Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Price Range</h3>
+        <div class="price-slider">
+          <div class="price-range">
+            <div class="price-handle left"></div>
+            <div class="price-handle right"></div>
+          </div>
+          <div class="price-values">
+            <span>$0</span>
+            <span>$500</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Size Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Size</h3>
+        <div class="size-options">
+          <div class="size-option">S</div>
+          <div class="size-option selected">M</div>
+          <div class="size-option">L</div>
+          <div class="size-option">XL</div>
+        </div>
+      </div>
+      
+      <!-- Sort By -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Sort By</h3>
+        <div class="sort-options">
+          <div class="sort-option">
+            <div class="sort-radio selected"></div>
+            <span>Popular</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Newest</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↑</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↓</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Categories -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Categories</h3>
+        <div class="categories-list">
+          <div class="category-option">
+            <div class="category-checkbox selected"></div>
+            <span>Jackets</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Hoodies</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Pants</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Accessories</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Footwear</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Products -->
+    <main class="products-container">
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-stock="5">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Product Name</h3>
+            <div class="product-price">$99.99</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card" data-stock="8">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-027: Havoc Hoodie</h3>
+            <div class="product-price">$89</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card" data-stock="0">
+          <div class="product-img-container">
+            <div class="product-tag">Sold Out</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-045: Rogue Pants</h3>
+            <div class="product-price">$110</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-038: Anarchy Tee</h3>
+            <div class="product-price">$45</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">Limited</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-051: Rebel Cap</h3>
+            <div class="product-price">$35</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-062: Disorder Boots</h3>
+            <div class="product-price">$195</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Releases -->
+    <div class="new-releases" style="display: none;">
+      <div class="product-grid">
+        <!-- New Product 1 -->
+        <div class="product-card" data-stock="2">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-078: Chaos Puffer</h3>
+            <div class="product-price">$159</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 2 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-079: Riot Vest</h3>
+            <div class="product-price">$95</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 3 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-080: Disorder Cargos</h3>
+            <div class="product-price">$125</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Featured Drop Section -->
+  <section class="featured-drop">
+    <h2 class="drop-title">🔥 Just Dropped</h2>
+    <div class="drop-slider">
+      <!-- Drop Item 1 -->
+      <div class="drop-item">
+        <div class="countdown">24:23:59</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Blackout Collection 2025</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Drop Item 2 -->
+      <div class="drop-item">
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Chaos Theory Series</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drop Item 2 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dungeons Series I </h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 3 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Urban Warfare Pack</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 4 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Dystopia Drop Vol.1</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 5 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Blood on Canvas</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+<!-- Drop Item 6 -->
+<div class="drop-item">
+  <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+  <div class="drop-info">
+    <h3 class="drop-name">Noise & Needles Collab</h3>
+    <div class="drop-btn">
+      Explore <span>→</span>
+    </div>
+  </div>
+</div>
+
+      <!-- Drop Item 3 -->
+      <div class="drop-item">
+        <div class="countdown">12:04:30</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Dystopia Limited Edition</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <div class="bg-text">ANARCHY</div>
+    <button class="load-more">Load More</button>
+  </div>
+
+  <!-- Support Bar -->
+  <div class="support-bar">
+    <div class="support-text">Questions? Hit us up →</div>
+    <button class="support-btn">Contact Support</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shop All</div>
+          <div class="footer-link">Collections</div>
+          <div class="footer-link">Lookbook</div>
+          <div class="footer-link">About Us</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Help</h4>
+        <div class="footer-links">
+          <div class="footer-link">Shipping</div>
+          <div class="footer-link">Returns</div>
+          <div class="footer-link">Sizing Guide</div>
+          <div class="footer-link">FAQ</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Legal</h4>
+        <div class="footer-links">
+          <div class="footer-link">Privacy Policy</div>
+          <div class="footer-link">Terms of Service</div>
+          <div class="footer-link">Cookie Policy</div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Connect</h4>
+        <div class="footer-socials">
+          <div class="social-icon"><i class="fab fa-instagram"></i></div>
+          <div class="social-icon"><i class="fab fa-twitter"></i></div>
+          <div class="social-icon"><i class="fab fa-discord"></i></div>
+          <div class="social-icon"><i class="fab fa-tiktok"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© 2025 ANARCHY. All rights reserved.</div>
+  </footer>
+
+  <!-- Product Modal -->
+  <div class="product-modal" style="display: none;">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <!-- Left Side: Images -->
+      <div class="modal-images">
+        <div class="main-image">
+          <img src="/api/placeholder/600/600" alt="Product">
+        </div>
+        <div class="image-thumbnails">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 1" class="active">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 2">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 3">
+          <img src="/api/placeholder/600/600" alt="Thumbnail 4">
+        </div>
+      </div>
+      <!-- Right Side: Info -->
+      <div class="modal-info">
+        <h2 class="modal-title">PRODUCT NAME</h2>
+        <p class="modal-price">$99.99</p>
+        <div class="modal-description">
+          <p>Embrace the chaos. This piece represents the perfect fusion of underground aesthetics and streetwear rebellion. Each detail carefully crafted for those who dare to stand out.</p>
+        </div>
+
+        <div class="variant-selectors">
+  <div class="variant-group">
+    <div class="variant-label">Color</div>
+    <div class="color-options">
+      <!-- Color swatches will be added dynamically -->
+    </div>
+  </div>
+  
+  <div class="variant-group">
+    <div class="variant-label">Size</div>
+    <div class="size-options">
+      <!-- Size options will be added dynamically -->
+    </div>
+    <div class="stock-indicator"></div>
+  </div>
+</div>
+
+        <div class="quantity-selector">
+          <button class="quantity-btn decrease">−</button>
+          <span class="quantity-count">1</span>
+          <button class="quantity-btn increase">+</button>
+        </div>
+        <button class="modal-add-cart">ADD TO CHAOS</button>
+      </div>
+      <button class="modal-close">×</button>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+<div class="cart-drawer">
+  <div class="cart-backdrop"></div>
+  <div class="cart-content">
+    <div class="cart-header">
+      <h3>YOUR CHAOS (2)</h3>
+      <button class="cart-close">×</button>
+    </div>
+    
+    <div class="cart-items">
+      <!-- Cart items will be added dynamically -->
+    </div>
+    
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>TOTAL</span>
+        <span class="total-amount">$0.00</span>
+      </div>
+      <button class="checkout-btn">CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    const productData = {
+  'ANR-013: Scorched Jacket': {
+    variants: [
+      { color: 'Black', hex: '#000000', size: 'S', stock: 2, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'M', stock: 3, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Black', hex: '#000000', size: 'L', stock: 0, price: 129, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'M', stock: 1, price: 139, image: '/api/placeholder/600/800' },
+      { color: 'Red', hex: '#ff0000', size: 'L', stock: 4, price: 139, image: '/api/placeholder/600/800' }
+    ]
+  }
+  // Add more products as needed
+};
+
+    function updateCartCount(num = 1) {
+      let count = parseInt(localStorage.getItem('cartCount')) || 0;
+      count += num;
+      localStorage.setItem('cartCount', count);
+      document.querySelector('.cart-count').textContent = count;
+    }
+
+    function flyToCart(button) {
+      const product = button.closest('.product-card');
+      const productImg = product.querySelector('.product-img');
+      const cartContent = document.querySelector('.cart-content');
+      
+      // Get product details
+      const productDetails = {
+        name: product.querySelector('.product-name').textContent,
+        price: product.querySelector('.product-price').textContent,
+        image: productImg.src
+      };
+      
+      // Clone image for animation
+      const imgClone = productImg.cloneNode(true);
+      const productRect = productImg.getBoundingClientRect();
+      const cartRect = cartContent.getBoundingClientRect();
+      
+      imgClone.style.position = 'fixed';
+      imgClone.style.left = `${productRect.left}px`;
+      imgClone.style.top = `${productRect.top}px`;
+      imgClone.style.width = `${productImg.offsetWidth}px`;
+      imgClone.style.height = `${productImg.offsetHeight}px`;
+      imgClone.style.transition = 'all 0.8s ease-in-out';
+      imgClone.style.zIndex = 9999;
+      
+      document.body.appendChild(imgClone);
+      
+      setTimeout(() => {
+        imgClone.style.left = `${cartRect.right - 100}px`;
+        imgClone.style.top = `${window.scrollY + 100}px`;
+        imgClone.style.opacity = '0';
+        imgClone.style.transform = 'scale(0.2)';
+      }, 10);
+      
+      // Add to cart after animation
+      setTimeout(() => {
+        imgClone.remove();
+        cart.addItem(productDetails, null, 1);
+      }, 800);
+    }
+
+    const cart = {
+  items: [],
+
+  init() {
+    this.items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    this.updateUI();
+
+    // Event listeners
+    document.querySelector('.cart-icon').addEventListener('click', this.open.bind(this));
+    document.querySelector('.cart-backdrop').addEventListener('click', this.close.bind(this));
+    document.querySelector('.cart-close').addEventListener('click', this.close.bind(this));
+  },
+
+  addItem(product, variant, quantity) {
+    const item = {
+      id: Date.now(),
+      name: product.name,
+      price: variant ? variant.price : parseFloat(product.price.replace('$', '')),
+      image: variant ? variant.image : product.image,
+      variant: variant ? `${variant.color} - ${variant.size}` : null,
+      quantity: quantity
+    };
+
+    this.items.push(item);
+    this.save();
+    this.updateUI();
+    this.open();
+
+    toast.show(`${product.name} added to cart`, 'success');
+  },
+
+  removeItem(id) {
+    this.items = this.items.filter(item => item.id !== id);
+    this.save();
+    this.updateUI();
+  },
+
+  save() {
+    localStorage.setItem('cartItems', JSON.stringify(this.items));
+    localStorage.setItem('cartCount', this.items.reduce((sum, item) => sum + item.quantity, 0));
+  },
+
+  updateUI() {
+    const cartItems = document.querySelector('.cart-items');
+    const totalAmount = document.querySelector('.total-amount');
+    const cartCount = document.querySelector('.cart-count');
+
+    // Update items
+    cartItems.innerHTML = this.items.map(item => `
+      <div class="cart-item" data-id="${item.id}">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          ${item.variant ? `<div class="cart-item-variant">${item.variant}</div>` : ''}
+          <div class="cart-item-price">$${item.price} × ${item.quantity}</div>
+        </div>
+        <button class="remove-item" onclick="cart.removeItem(${item.id})">Remove</button>
+      </div>
+    `).join('');
+
+    // Update total
+    const total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+
+    // Update count
+    cartCount.textContent = this.items.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Update header
+    document.querySelector('.cart-header h3').textContent = 
+      `YOUR CHAOS (${this.items.length})`;
+  },
+
+  open() {
+    document.querySelector('.cart-drawer').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  },
+
+  close() {
+    document.querySelector('.cart-drawer').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+};
+
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', () => {
+  cart.init();
+
+  // Add click handlers for View Chaos buttons
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const product = btn.closest('.product-card');
+      openProductModal(product);
+    });
+  });
+  
+  // Add modal close handlers
+  document.querySelector('.modal-backdrop').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+  
+  document.querySelector('.modal-close').addEventListener('click', () => {
+    document.querySelector('.product-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  });
+});
+
+// Open Product Modal
+function openProductModal(product) {
+  const modal = document.querySelector('.product-modal');
+  
+  // Get product details
+  const productDetails = {
+    name: product.querySelector('.product-name').textContent,
+    price: product.querySelector('.product-price').textContent,
+    image: product.querySelector('.product-img').src,
+    stock: product.dataset.stock || '10'
+  };
+  
+  // Store stock in modal dataset
+  modal.dataset.stock = productDetails.stock;
+  
+  // Update modal content
+  modal.querySelector('.modal-title').textContent = productDetails.name;
+  modal.querySelector('.modal-price').textContent = productDetails.price;
+  modal.querySelector('.main-image img').src = productDetails.image;
+  
+  // Set all thumbnails to same image for now
+  modal.querySelectorAll('.image-thumbnails img').forEach(thumb => {
+    thumb.src = productDetails.image;
+  });
+  
+  // Reset quantity to 1
+  modal.querySelector('.quantity-count').textContent = '1';
+  
+  // Check if product is sold out
+  const isSoldOut = product.querySelector('.product-tag')?.textContent === 'Sold Out';
+  const quantitySelector = modal.querySelector('.quantity-selector');
+  const addToCartBtn = modal.querySelector('.modal-add-cart');
+  
+  if (isSoldOut) {
+    quantitySelector.style.display = 'none';
+    addToCartBtn.textContent = '🚫 SORRY, CHAOS SOLD OUT';
+    addToCartBtn.classList.add('sold-out');
+    addToCartBtn.disabled = true;
+  } else {
+    quantitySelector.style.display = 'flex';
+    addToCartBtn.textContent = 'ADD TO CHAOS';
+    addToCartBtn.classList.remove('sold-out');
+    addToCartBtn.disabled = false;
+  }
+  
+  // Show modal
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// Fix the quantity selector event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // ...existing init code...
+
+  const quantitySelector = document.querySelector('.quantity-selector');
+  if (quantitySelector) {
+    const decreaseBtn = quantitySelector.querySelector('.decrease');
+    const increaseBtn = quantitySelector.querySelector('.increase');
+    
+    decreaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      if (count > 1) {
+        quantityCount.textContent = count - 1;
+      }
+      updateIncreaseButtonState(modal, parseInt(modal.dataset.stock));
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+      const modal = document.querySelector('.product-modal');
+      const quantityCount = modal.querySelector('.quantity-count');
+      let count = parseInt(quantityCount.textContent);
+      const stock = parseInt(modal.dataset.stock);
+      
+      if (count >= stock) {
+        showMaxQuantityWarning();
+        return;
+      }
+      
+      quantityCount.textContent = count + 1;
+      updateIncreaseButtonState(modal, stock);
+    });
+  }
+});
+
+function startProductCountdown(product, endTime) {
+  const countdownEl = document.createElement('div');
+  countdownEl.className = 'countdown-timer';
+  product.querySelector('.product-info').insertBefore(
+    countdownEl,
+    product.querySelector('.add-to-cart')
+  );
+
+  const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+
+    // Time calculations
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Format time
+    const timeLeft = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    // Update display
+    countdownEl.innerHTML = `⏳ ${timeLeft} left`;
+
+
+    if (distance < 1000 * 60 * 60) {
+      countdownEl.classList.add('urgent');
+    }
+
+    // When countdown finished
+    if (distance < 0) {
+      clearInterval(interval);
+      countdownEl.remove();
+      
+      // Mark as sold out
+      const productTag = product.querySelector('.product-tag') || 
+        document.createElement('div');
+      productTag.className = 'product-tag';
+      productTag.textContent = 'Sold Out';
+      if (!product.querySelector('.product-tag')) {
+        product.querySelector('.product-img-container').prepend(productTag);
+      }
+      
+      // Disable add to cart
+      const addToCartBtn = product.querySelector('.add-to-cart');
+      addToCartBtn.disabled = true;
+      addToCartBtn.textContent = 'Sold Out';
+      addToCartBtn.style.opacity = '0.5';
+      addToCartBtn.style.cursor = 'not-allowed';
+      
+      // Update product data
+      product.dataset.stock = '0';
+    }
+  }, 1000);
+
+  return interval;
+}
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="noise"></div>
+  
+  <header>
+    <div class="logo">ANARCHY</div>
+    <div class="nav">
+      <div class="nav-item">Shop</div>
+      <div class="nav-item">Collections</div>
+      <div class="nav-item">Lookbook</div>
+      <div class="nav-item">About</div>
+    </div>
+    <div class="cart-icon">
+      🛒
+      <div class="cart-count">2</div>
+    </div>
+  </header>
+  
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <img src="/api/placeholder/1920/500" alt="The Chaos" class="hero-bg">
+    <div class="hero-content">
+      <h1 class="hero-title">THE CHAOS</h1>
+      <p class="hero-subtitle">Choose your poison.</p>
+    </div>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">New</button>
+      <button class="filter-btn">Streetwear</button>
+      <button class="filter-btn">Last Drop</button>
+      <button class="filter-btn">Accessories</button>
+    </div>
+  </section>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Filters</h2>
+      
+      <!-- Price Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Price Range</h3>
+        <div class="price-slider">
+          <div class="price-range">
+            <div class="price-handle left"></div>
+            <div class="price-handle right"></div>
+          </div>
+          <div class="price-values">
+            <span>$0</span>
+            <span>$500</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Size Filter -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Size</h3>
+        <div class="size-options">
+          <div class="size-option">S</div>
+          <div class="size-option selected">M</div>
+          <div class="size-option">L</div>
+          <div class="size-option">XL</div>
+        </div>
+      </div>
+      
+      <!-- Sort By -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Sort By</h3>
+        <div class="sort-options">
+          <div class="sort-option">
+            <div class="sort-radio selected"></div>
+            <span>Popular</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Newest</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↑</span>
+          </div>
+          <div class="sort-option">
+            <div class="sort-radio"></div>
+            <span>Price ↓</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Categories -->
+      <div class="filter-section">
+        <h3 class="filter-heading">Categories</h3>
+        <div class="categories-list">
+          <div class="category-option">
+            <div class="category-checkbox selected"></div>
+            <span>Jackets</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Hoodies</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Pants</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Accessories</span>
+          </div>
+          <div class="category-option">
+            <div class="category-checkbox"></div>
+            <span>Footwear</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Products -->
+    <main class="products-container">
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card" data-stock="5">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Product Name</h3>
+            <div class="product-price">$99.99</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="product-card" data-stock="8">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-027: Havoc Hoodie</h3>
+            <div class="product-price">$89</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="product-card" data-stock="0">
+          <div class="product-img-container">
+            <div class="product-tag">Sold Out</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-045: Rogue Pants</h3>
+            <div class="product-price">$110</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-038: Anarchy Tee</h3>
+            <div class="product-price">$45</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">Limited</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-051: Rebel Cap</h3>
+            <div class="product-price">$35</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-062: Disorder Boots</h3>
+            <div class="product-price">$195</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- New Releases -->
+    <div class="new-releases" style="display: none;">
+      <div class="product-grid">
+        <!-- New Product 1 -->
+        <div class="product-card" data-stock="2">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-078: Chaos Puffer</h3>
+            <div class="product-price">$159</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 2 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-079: Riot Vest</h3>
+            <div class="product-price">$95</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- New Product 3 -->
+        <div class="product-card">
+          <div class="product-img-container">
+            <div class="product-tag">New</div>
+            <img src="/api/placeholder/600/800" alt="Product" class="product-img">
+            <div class="product-overlay">
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-080: Disorder Cargos</h3>
+            <div class="product-price">$125</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Featured Drop Section -->
+  <section class="featured-drop">
+    <h2 class="drop-title">🔥 Just Dropped</h2>
+    <div class="drop-slider">
+      <!-- Drop Item 1 -->
+      <div class="drop-item">
+        <div class="countdown">24:23:59</div>
+        <img src="/api/placeholder/600/400" alt="Drop" class="drop-img">
+        <div class="drop-info">
+          <h3 class="drop-name">Blackout Collection 2025</h3>
+          <div class="drop-btn">
+            Explore <span>→</span>
+          </div>
+        </div>
+      </div>
+      
+              <button class="view-btn">View Chaos</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">ANR-051: Rebel Cap</h3>
+            <div class="product-price">$35</div>
+            <button class="add-to-cart" onclick="flyToCart(this)">Add to Cart</button>
+          </div>
+        </div>
+        
